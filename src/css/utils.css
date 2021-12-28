@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+
+:root {
+    --primary-color: #8247e5;
+    --secondary-color: #061024; 
+    --purple-light: #7533e2;
+    --shadow-color: #e8e8e8; 
+    --primary-font: 'Manrope', sans-serif;
+}
+
+/* scroll bar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    background: var(--primary-color);
+}
