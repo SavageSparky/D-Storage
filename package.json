@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/SavageSparky/D-Storage/issues"
   },
-  "homepage": "https://github.com/SavageSparky/D-Storage#readme"
+  "homepage": "https://github.com/SavageSparky/D-Storage#readme",
+  "dependencies": {
+    "web3.storage": "^3.5.2"
+  }
 }
