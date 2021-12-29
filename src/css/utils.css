@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@300&display=swap');
 
 :root {
-    --primary-color: #8247e5;
-    --secondary-color: #061024; 
-    --purple-light: #7533e2;
+    --primary-color: #fff; 
+    --secondary-color:#111;
+    --accent-1: #8247e5;
+    --accent-2: #7533e2;
     --shadow-color: #e8e8e8; 
-    --primary-font: 'Manrope', sans-serif;
+    --primary-font:'Londrina Solid', cursive;
 }
 
 /* scroll bar */
@@ -21,5 +22,8 @@
 /* Handle */
 ::-webkit-scrollbar-thumb {
     border-radius: 2rem;
-    background: var(--primary-color);
+    background: var(--accent-1);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-2);
 }
