@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/SavageSparky/D-Storage#readme",
   "dependencies": {
+    "firebase": "^9.6.1",
     "web3.storage": "^3.5.2"
   },
   "devDependencies": {
