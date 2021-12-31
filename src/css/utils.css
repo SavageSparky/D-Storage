@@ -1,12 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@300&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@300&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Rubik&family=Ubuntu&display=swap');
 
 :root {
     --primary-color: #fff; 
     --secondary-color:#111;
     --accent-1: #8247e5;
     --accent-2: #7533e2;
+    --background: #EEE7FA;
     --shadow-color: #e8e8e8; 
-    --primary-font:'Londrina Solid', cursive;
+    /* --primary-font:'Londrina Solid', cursive; */
+    --primary-font: 'Rubik', sans-serif;
+    /* --accent-1: #b68cff; */
 }
 
 /* scroll bar */

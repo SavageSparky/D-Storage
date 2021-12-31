@@ -4,3 +4,4 @@ import "../css/utils.css"
 
 //import js
 import "./modules/firebase-key"
+import "./index"

@@ -12,24 +12,40 @@ body a {
 body {
   font-family: var(--primary-font);
   color: var(--secondary-color);
-  background: url("../assets/bg-img.png");
+  /* background: url("../assets/bg-img.png"); */
   background-size: 100vw 100vh;
+  /* background-color: var(--background); */
 }
 
 nav {
   display: flex;
+  position: fixed;
+  width: 100%;
+  padding: 0;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   margin-bottom: 3rem;
   font-size: 1.4rem;
-  color:var(--primary-color);
-  text-shadow: 1px 1px 3px var(--secondary-color);
+  color:var(--accent-2);
+  /* background-color: var(--primary-color); */
+  /* background-color: var(--accent-1); */
+  background-color: var(--background);
+  box-shadow: 0 0 3px var(--accent-1);
+  /* text-shadow: 1px 1px 3px var(--secondary-color); */
 }
 
 #nav-title {
   text-transform: uppercase;
   font-weight: bolder;
-  padding-left:2.5rem;
+  background-color: var(--accent-1);
+  margin: 0;
+  padding: 0 2.5rem;
+  display: flex;
+}
+
+#nav-title > h2 {
+  margin: auto;
+  color: white;
 }
 
 #nav-options{
@@ -42,5 +58,58 @@ nav {
 }
 
 #nav-options a:hover{
-  text-decoration: underline var(--primary-color);
+  text-decoration: underline var(--accent-1);
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.upload_img_cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload_img {
+  width: 150px;
+  height: auto;
+}
+
+.upload_img_cont h3{
+  padding: 1rem;
+  font-size: 1.3rem;
+  color: #383838;
+  font-weight: 100;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#file_selector {
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+}
+
+#submit {
+  border: none;
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--accent-1);
+  color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+#submit:hover {
+  background-color: var(--accent-2);
 }
