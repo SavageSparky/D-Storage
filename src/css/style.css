@@ -66,13 +66,19 @@ main {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  flex-direction: column;
 }
 
+section {
+  display: flex;
+  min-height: 100vh;
+}
 .upload_img_cont {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-right: 3rem;
 }
 
 .upload_img {
@@ -81,7 +87,7 @@ main {
 }
 
 .upload_img_cont h3{
-  padding: 1rem;
+  padding-top: 1rem;
   font-size: 1.3rem;
   color: #383838;
   font-weight: 100;
@@ -98,7 +104,12 @@ form {
   border: none;
   padding: 1rem;
   border-radius: 0.5rem;
-  background-color: white;
+  background-color: var(--background);
+}
+
+p {
+  font-size: 1rem;
+  color: #373737;
 }
 
 #submit {
@@ -112,4 +123,35 @@ form {
 }
 #submit:hover {
   background-color: var(--accent-2);
+}
+
+
+/* ******** files section ********* */
+#files {
+  background-color: var(--background);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+table, th, td {
+  border: 2px solid var(--accent-2);
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.5rem 1rem;
+}
+
+th {
+  color: var(--secondary-color);
+  background-color: white;
+  text-align: center;
+}
+
+td {
+  text-align: left;
 }

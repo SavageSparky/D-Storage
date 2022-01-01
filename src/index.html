@@ -15,21 +15,50 @@
     </div>
     <div id="nav-options">
       <a href="#">Home</a>
-      <a href="#">Files</a>
-      <a href="#">Mode</a>
+      <a href="#upload">Upload</a>
+      <a href="#files">Files</a>
       <a href="#">Account</a>
     </div>
   </nav>
   <main>
-    <div class="upload_img_cont">
-      <img class="upload_img" src="./assets/file-upload-solid.svg" alt="">
-      <h3>Upload Files</h3>
+    <section id="upload">
+      <div class="upload_img_cont">
+        <img class="upload_img" src="./assets/file-upload-solid.svg" alt="">
+        <h3>Upload Files</h3>
+      </div>
       <form action="" id="uploadForm">
         <input type="file" id="file_selector" multiple>
         <button type="submit" id="submit">Upload</button>
-        <p class="description"></p>
+        <p class="description">Choose files and click Upload</p>
       </form>
-    </div>
+    </section>
+
+    <section id="files">
+      <table class="files_table">
+        <tr class="table_heading">
+          <th>Name</th>
+          <th>CID</th>
+          <th>Status</th>
+          <th>Size</th>
+          <th>Download</th>
+        </tr>
+        <tr class="table_records">
+          <td>miles_morales.jpg</td>
+          <td>aslkjfosajdoifjksdncksaidoijfoiwje</td>
+          <td>queued</td>
+          <td>11.3MB</td>
+          <td></td>
+        </tr>
+        <tr class="table_records">
+          <td>asdfas.txt</td>
+          <td>uhihqifnasjdbiaskfhaksjhdfjkvasvasdvasdvg</td>
+          <td>queued</td>
+          <td>3KB</td>
+        </tr>
+
+      </table>
+    </section>
+    
 
   </main>
 </body>
