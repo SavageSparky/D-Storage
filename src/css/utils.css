@@ -4,13 +4,17 @@
 :root {
     --primary-color: #fff; 
     --secondary-color:#111;
-    --accent-1: #8247e5;
-    --accent-2: #7533e2; 
-    --background: #EEE7FA;
+    /* --accent-1: #8247e5; */
+    /* --accent-2: #7533e2;  */
+    /* --background: #EEE7FA; */
     --shadow-color: #e8e8e8; 
     /* --primary-font:'Londrina Solid', cursive; */
     --primary-font: 'Rubik', sans-serif;
-    /* --accent-1: #b68cff; */
+    --accent-1: #1e74e4;
+    --accent-2: #215dcc;
+    --background: #e2ecff;
+    --svg: #3984e6;
+    --svg-green: rgb(0, 128, 111);
 }
 
 /* scroll bar */
