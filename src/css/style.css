@@ -29,7 +29,8 @@ nav {
   color:var(--accent-2);
   /* background-color: var(--primary-color); */
   /* background-color: var(--accent-1); */
-  background-color: var(--background);
+  /* background-color: var(--background); */
+  background-color: rgba(255, 255, 255, 0.705);
   box-shadow: 0 0 3px var(--accent-1);
   /* text-shadow: 1px 1px 3px var(--secondary-color); */
 }
@@ -55,6 +56,7 @@ nav {
 
 #nav-options a {
   padding: 1.5rem 1.2rem;
+  color: var(--accent-2);
 }
 
 #nav-options a:hover{
@@ -73,6 +75,17 @@ section {
   display: flex;
   min-height: 100vh;
 }
+
+#upload {
+  background-image: url("../assets/19366.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .upload_img_cont {
   display: flex;
   flex-direction: column;
@@ -155,6 +168,11 @@ th {
 
 td {
   text-align: left;
+}
+
+td > a:hover {
+  color: var(--accent-1);
+  text-decoration: underline;
 }
 
 .download_img {

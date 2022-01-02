@@ -51,12 +51,12 @@ window.onload = async ()=> {
     const size = formatSize(file.dagSize); 
 
     form.innerHTML += `<tr class="table_records">
-    <td>${fileName}</td>
-    <td>${cid}</td>
-    <td>${size}</td>
+    <td class="file_name">${fileName}</td>
+    <td class="file_cid"><a href="https://${cid}.ipfs.dweb.link/" target="blank">${cid}</a></td>
+    <td class="file_size">${size}</td>
     <td>queued</td>
-    <td><img class="download_img" src="./assets/download_icon.svg" alt=""></td>
-    <td><img class="trash_img" src="./assets/trash_icon.svg" alt=""></td>
+    <td><a href="https://${cid}.ipfs.dweb.link/${fileName}" target="blank" download><img class="download_img" src="./assets/download_icon.svg" alt=""></a></td>
+    <td><a href=""><img class="trash_img" src="./assets/trash_icon.svg" alt=""></a></td>
     </tr>`;
   }
 }
