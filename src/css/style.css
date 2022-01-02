@@ -57,10 +57,15 @@ nav {
 #nav-options a {
   padding: 1.5rem 1.2rem;
   color: var(--accent-2);
+  cursor: pointer;
 }
 
 #nav-options a:hover{
   text-decoration: underline var(--accent-1);
+}
+
+#sign-out-btn{
+  display:none;
 }
 
 main {
