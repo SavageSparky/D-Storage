@@ -138,8 +138,9 @@ p {
 
 
 table, th, td {
-  border: 2px solid var(--accent-2);
+  border: 2px solid #9262e4;
   border-collapse: collapse;
+  background-color: white;
 }
 
 th, td {
@@ -147,11 +148,23 @@ th, td {
 }
 
 th {
-  color: var(--secondary-color);
-  background-color: white;
+  color: var(--primary-color);
+  background-color: #9262e4;
   text-align: center;
 }
 
 td {
   text-align: left;
+}
+
+.download_img {
+  height: 1rem;
+  width: auto;
+  cursor: pointer;
+}
+
+.trash_img {
+  height: 1rem;
+  width: auto;
+  cursor: pointer;
 }
