@@ -1,5 +1,4 @@
 import { firebaseConfig } from "./modules/firebase-key";
-
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
 
@@ -38,7 +37,7 @@ function signOutUser() {
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        console.log("signed-out");
+        console.log("signed in");
         signInBtn.style.display="none";
         signOutBtn.style.display="unset"
 
