@@ -10,24 +10,30 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const database = getDatabase(app);
 
+const status = document.querySelector('.description');
+const uploadButton = document.getElementById('submit');
+const form = document.querySelector(".files_table");
+
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const userId = user.uid;
-    getFiles(userId)
+    getFilesDb(userId)
     uploadButton.addEventListener('click', async (e) => {
-      storeCurrentFile(e, userId)
+      storeFileInW3(e, userId)
     })
   }
 });
 
 
-function getFiles(userId) {
+function getFilesDb(userId) {
   const db = ref(getDatabase());
   const dbRef = `${userId}/files`
   get(child(db, dbRef)).then((snapshot) => {
     if (snapshot.exists()) {
-      console.log(snapshot.val());
+      // console.log(snapshot.val());
+      const data = snapshot.val();
+      retrieveFromW3(data)
     }
     else {
 
@@ -37,21 +43,27 @@ function getFiles(userId) {
   });
 }
 
-const status = document.querySelector('.description');
-const uploadButton = document.getElementById('submit');
+function addFileInDb(cid, fileName, userId) {
+  const dbRef = `${userId}/files/${fileName.split('.').slice(0, -1).join('.')}`
+  set(ref(database, dbRef), {
+    File_name: fileName,
+    cid: cid
+  }).then(() => {
+    resetForm()
+    getFilesDb(userId)
+  })
+    .catch((error) => {
+      console.log(error)
+    });
+}
 
-
-async function storeCurrentFile(e, userId) {
+async function storeFileInW3(e, userId) {
   e.preventDefault();
-
   const files = document.getElementById('file_selector').files;
+  const len = files.length;
   const fileName = files[0].name;
-
   status.style.color = "#0351c5";
   status.innerHTML = "Please Wait, Uploading Files..."
-
-  const len = files.length;
-
   if (len == 0) {
     status.innerHTML = "Please select a file"
   }
@@ -64,30 +76,45 @@ async function storeCurrentFile(e, userId) {
   }
 }
 
-function addFileInDb(cid, fileName, userId) {
-  const dbRef = `${userId}/files/${fileName.split('.').slice(0, -1).join('.')}`
-  set(ref(database, dbRef), {
-    File_name: fileName,
-    cid: cid
-  }).then(() => {
-    console.log("saved")
+async function retrieveFromW3(data) {
+  let fileArray = await listUploads();
+  console.log(fileArray)
+  const userFiles = Object.keys(data);
+  let userCid = [];
+
+  userFiles.forEach(file => {
+    userCid.push(data[file].cid)
   })
-    .catch((error) => {
-      console.log(error)
-    });
+
+  console.log(userCid)
+  fileArray.forEach((file, index) => {
+    const storedCid = file.cid;
+    if (userCid.includes(storedCid)) {
+    }
+    else {
+      console.log(index);
+      fileArray.splice(index)
+    }
+  })
+  updateFileContent(fileArray)
+}
+function resetForm() {
+  form.innerHTML = `        
+  <tr class="table_heading">
+    <th>Name</th>
+    <th>CID</th>
+    <th>Status</th>
+    <th>Size</th>
+    <th><img src="./assets/download_icon.svg" alt=""></th>
+    <th><img src="./assets/trash_icon.svg" alt=""></th>
+  </tr>`
 }
 
-
-const form = document.querySelector(".files_table");
-
-window.onload = async ()=> {
-  let fileArray = await listUploads();
-  for (const file of fileArray) {
-    console.log(file);
-  
+function updateFileContent(fileArray) {
+  fileArray.forEach(file => {
     const fileName = file.name;
     const cid = file.cid;
-    const size = formatSize(file.dagSize); 
+    const size = formatSize(file.dagSize);
 
     form.innerHTML += `<tr class="table_records">
     <td class="file_name">${fileName}</td>
@@ -97,8 +124,9 @@ window.onload = async ()=> {
     <td><a href="https://${cid}.ipfs.dweb.link/${fileName}" target="blank" download><img class="download_img" src="./assets/download_icon.svg" alt=""></a></td>
     <td><a href=""><img class="trash_img" src="./assets/trash_icon.svg" alt=""></a></td>
     </tr>`;
-  }
+  })
 }
+
 
 function formatSize(byteSize) {
   if (byteSize / 1024 < 1) {
