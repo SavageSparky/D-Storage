@@ -1,44 +1,84 @@
-import {storeFiles, listUploads} from "./w3Storage"
+import { storeFiles, listUploads } from "./w3Storage"
 
+import { firebaseConfig } from "./modules/firebase-key";
+import { initializeApp } from "firebase/app";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { getDatabase, set, ref, get, child } from "firebase/database";
+import { getFilesFromPath } from "files-from-path";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+const database = getDatabase(app);
+
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const userId = user.uid;
+    getFiles(userId)
+    uploadButton.addEventListener('click', async (e) => {
+      storeCurrentFile(e, userId)
+    })
+  }
+});
+
+
+function getFiles(userId) {
+  const db = ref(getDatabase());
+  const dbRef = `${userId}/files`
+  get(child(db, dbRef)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    }
+    else {
+
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+}
 
 const status = document.querySelector('.description');
 const uploadButton = document.getElementById('submit');
-uploadButton.addEventListener('click', async (event)=> {
-  event.preventDefault();
+
+
+async function storeCurrentFile(e, userId) {
+  e.preventDefault();
 
   const files = document.getElementById('file_selector').files;
-  console.log(files);
+  const fileName = files[0].name;
 
   status.style.color = "#0351c5";
   status.innerHTML = "Please Wait, Uploading Files..."
 
   const len = files.length;
-  
-  if(len == 0){
+
+  if (len == 0) {
     status.innerHTML = "Please select a file"
   }
-  else{   
+  else {
     const cid = await storeFiles(files);
-    console.log("from index.js : "+cid);
+    addFileInDb(cid, fileName, userId)
+    console.log("from index.js : " + cid);
     status.style.color = "green";
     status.innerHTML = `File uploaded! <br> cid generated! <br> Go to Files Section for more info`;
-  }  
-})
+  }
+}
+
+function addFileInDb(cid, fileName, userId) {
+  const dbRef = `${userId}/files/${fileName.split('.').slice(0, -1).join('.')}`
+  set(ref(database, dbRef), {
+    File_name: fileName,
+    cid: cid
+  }).then(() => {
+    console.log("saved")
+  })
+    .catch((error) => {
+      console.log(error)
+    });
+}
 
 
-// Files Section
 const form = document.querySelector(".files_table");
-form.innerHTML = `
-<tr class="table_heading">
-<th>Name</th>
-<th>CID</th>
-<th>Size</th>
-<th>Status</th>
-<th></th>
-<th></th>
-</tr>
-`;
-
 
 window.onload = async ()=> {
   let fileArray = await listUploads();
@@ -47,7 +87,6 @@ window.onload = async ()=> {
   
     const fileName = file.name;
     const cid = file.cid;
-    // const status = pins.status;
     const size = formatSize(file.dagSize); 
 
     form.innerHTML += `<tr class="table_records">
@@ -61,19 +100,19 @@ window.onload = async ()=> {
   }
 }
 
-function formatSize(byteSize){
-  if(byteSize/1024 < 1){
-    return byteSize+' B';
+function formatSize(byteSize) {
+  if (byteSize / 1024 < 1) {
+    return byteSize + ' B';
   }
-  else if(byteSize/(1024*1024) < 1){
-    return (byteSize/(1024)).toFixed(2)+" KB";
+  else if (byteSize / (1024 * 1024) < 1) {
+    return (byteSize / (1024)).toFixed(2) + " KB";
   }
-  else if(byteSize/(1024*1024*1024) < 1){
-    return (byteSize/(1024*1024)).toFixed(2)+" MB";
+  else if (byteSize / (1024 * 1024 * 1024) < 1) {
+    return (byteSize / (1024 * 1024)).toFixed(2) + " MB";
   }
-  else if(byteSize/(1024*1024*1024*1024) < 1){
-    return (byteSize/(1024*1024*1024)).toFixed(2)+" GB";
-  } 
+  else if (byteSize / (1024 * 1024 * 1024 * 1024) < 1) {
+    return (byteSize / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+  }
 }
 
 
