@@ -78,7 +78,8 @@ async function storeFileInW3(e, userId) {
 
 async function retrieveFromW3(data) {
   let fileArray = await listUploads();
-  console.log(fileArray)
+  console.log(fileArray);
+  // console.log(data);
   const userFiles = Object.keys(data);
   let userCid = [];
 
@@ -87,16 +88,15 @@ async function retrieveFromW3(data) {
   })
 
   console.log(userCid)
-  fileArray.forEach((file, index) => {
+  
+  let userFileArray = []
+  fileArray.forEach((file) => {
     const storedCid = file.cid;
     if (userCid.includes(storedCid)) {
-    }
-    else {
-      console.log(index);
-      fileArray.splice(index)
+      userFileArray.push(file);
     }
   })
-  updateFileContent(fileArray)
+  updateFileContent(userFileArray)
 }
 function resetForm() {
   form.innerHTML = `        
