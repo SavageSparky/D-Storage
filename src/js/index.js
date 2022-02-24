@@ -19,6 +19,7 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     const userId = user.uid;
     getFilesDb(userId)
+    resetForm()
     uploadButton.addEventListener('click', async (e) => {
       storeFileInW3(e, userId)
     })
@@ -105,8 +106,8 @@ function resetForm() {
     <th>CID</th>
     <th>Status</th>
     <th>Size</th>
-    <th><img src="./assets/download_icon.svg" alt=""></th>
-    <th><img src="./assets/trash_icon.svg" alt=""></th>
+    <th></th>
+    <th></th>
   </tr>`
 }
 
@@ -119,8 +120,8 @@ function updateFileContent(fileArray) {
     form.innerHTML += `<tr class="table_records">
     <td class="file_name">${fileName}</td>
     <td class="file_cid"><a href="https://${cid}.ipfs.dweb.link/" target="blank">${cid}</a></td>
-    <td class="file_size">${size}</td>
     <td>queued</td>
+    <td class="file_size">${size}</td>
     <td><a href="https://${cid}.ipfs.dweb.link/${fileName}" target="blank" download><img class="download_img" src="./assets/download_icon.svg" alt=""></a></td>
     <td><a href=""><img class="trash_img" src="./assets/trash_icon.svg" alt=""></a></td>
     </tr>`;
