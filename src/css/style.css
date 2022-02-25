@@ -209,6 +209,7 @@ td > a:hover {
 
 .storage_providers a {
   margin: 0 0.2rem;
+  color: rgb(97, 124, 167);
 }
 
 td .download_img {
