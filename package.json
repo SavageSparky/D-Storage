@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/SavageSparky/D-Storage#readme",
   "dependencies": {
+    "axios": "^0.26.0",
     "web3.storage": "^3.5.2"
   },
   "devDependencies": {
