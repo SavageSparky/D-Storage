@@ -199,6 +199,18 @@ td > a:hover {
   text-decoration: underline;
 }
 
+/* .file_cid {
+  width: 100px;
+}
+
+.file_cid>a {
+  text-overflow: ellipsis;
+} */
+
+.storage_providers a {
+  margin: 0 0.2rem;
+}
+
 td .download_img {
   height: 1rem;
   width: auto;

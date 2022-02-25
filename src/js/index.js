@@ -128,6 +128,7 @@ function resetForm() {
     <th>Name</th>
     <th>CID</th>
     <th>Status</th>
+    <th>Storage Providers</th>
     <th>Size</th>
     <th></th>
     <th></th>
@@ -139,16 +140,47 @@ function updateFileContent(fileArray) {
     const fileName = file.name;
     const cid = file.cid;
     const size = formatSize(file.dagSize);
+    const fileStatus = getFileStatus(file);
+    const storageProviders = getStorageProviders(fileStatus, file);
 
     form.innerHTML += `<tr class="table_records">
     <td class="file_name">${fileName}</td>
     <td class="file_cid"><a href="https://${cid}.ipfs.dweb.link/" target="blank">${cid}</a></td>
-    <td>queued</td>
+    <td>${fileStatus}</td>
+    <td class="storage_providers">${storageProviders}</td>
     <td class="file_size">${size}</td>
     <td><a href="https://${cid}.ipfs.dweb.link/${fileName}" target="blank" download><img class="download_img" src="./assets/download_icon.svg" alt=""></a></td>
     <td><a class="delete-file" data-file_name="${fileName.split(".").slice(0, -1).join(".")}" ><img class="trash_img" src="./assets/trash_icon.svg" alt=""></a></td>
     </tr>`;
   });
+}
+
+function getFileStatus(file){
+  if(file.pins.length == 0){
+    return "Queued"
+  }
+  else{
+    let status = "Pinned"
+    file.pins.forEach(element => {
+      if(element.status != "Pinned"){
+        status = "Queued"
+      }
+    });
+    return status;
+  }
+}
+
+function getStorageProviders(fileStatus, file) {
+  if(fileStatus == "Queued"){
+    return fileStatus;
+  }
+  else{
+    let storageProviders = "";
+    file.deals.forEach(provider => {
+      storageProviders += `<a href="https://filfox.info/en/deal/${provider.dealId}" target="blank">${provider.storageProvider} </a>`
+    });
+    return storageProviders;
+  }
 }
 
 function formatSize(byteSize) {
