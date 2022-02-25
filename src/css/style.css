@@ -322,6 +322,26 @@ td .trash_img {
 }
 
 
+#loader-row td,#no-data-row td{
+  text-align: center;
+}
+
+#loader-row td {
+  width: 7ch;
+  animation: load 1s infinite linear;
+}
+
+@keyframes load {
+  0%,
+  100% {
+    background-color: var(--primary-color);
+  }
+  50% {
+    background-color: var(--background);
+  }
+}
+
+
 /* text animation */
 @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 

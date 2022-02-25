@@ -12,7 +12,9 @@ const database = getDatabase(app);
 
 const status = document.querySelector(".description");
 const uploadButton = document.getElementById("submit");
-const form = document.querySelector(".files_table");
+const filesTable = document.querySelector(".files_table");
+const fileInput = document.querySelector("#file_selector");
+const fileInfo = document.querySelector("#file_info");
 
 let userId;
 
@@ -20,9 +22,9 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     userId = user.uid;
     getFilesDb(userId);
-    resetForm();
     uploadButton.addEventListener("click", async (e) => {
       storeFileInW3(e, userId);
+      dispLoaderRow();
     });
   }
 });
@@ -37,6 +39,7 @@ function getFilesDb(userId) {
         const data = snapshot.val();
         retrieveFromW3(data);
       } else {
+        dispNoDataMsg();
       }
     })
     .catch((error) => {
@@ -51,7 +54,6 @@ function addFileInDb(cid, fileName, userId) {
     cid: cid,
   })
     .then(() => {
-      resetForm();
       getFilesDb(userId);
     })
     .catch((error) => {
@@ -113,8 +115,12 @@ function addDeleteOption() {
 async function deleteFiles(btn) {
   const fileName = btn.dataset.file_name;
   await deleteFilesDb(fileName);
-  getFilesDb(userId);
-  resetForm();
+  btn.parentElement.parentElement.parentElement.remove();
+  const row = document.querySelectorAll("tbody");
+  console.log(row);
+  if (row.length < 2) {
+    dispNoDataMsg();
+  }
 }
 
 async function deleteFilesDb(fileName) {
@@ -123,7 +129,7 @@ async function deleteFilesDb(fileName) {
 }
 
 function resetForm() {
-  form.innerHTML = `        
+  filesTable.innerHTML = `        
   <tr class="table_heading">
     <th>Name</th>
     <th>CID</th>
@@ -136,6 +142,7 @@ function resetForm() {
 }
 
 function updateFileContent(fileArray) {
+  resetForm();
   fileArray.forEach((file) => {
     const fileName = file.name;
     const cid = file.cid;
@@ -143,27 +150,31 @@ function updateFileContent(fileArray) {
     const fileStatus = getFileStatus(file);
     const storageProviders = getStorageProviders(fileStatus, file);
 
-    form.innerHTML += `<tr class="table_records">
+    filesTable.innerHTML += `<tr class="table_records">
     <td class="file_name">${fileName}</td>
     <td class="file_cid"><a href="https://${cid}.ipfs.dweb.link/" target="blank">${cid}</a></td>
     <td>${fileStatus}</td>
     <td class="storage_providers">${storageProviders}</td>
     <td class="file_size">${size}</td>
     <td><a href="https://${cid}.ipfs.dweb.link/${fileName}" target="blank" download><img class="download_img" src="./assets/download_icon.svg" alt=""></a></td>
-    <td><a class="delete-file" data-file_name="${fileName.split(".").slice(0, -1).join(".")}" ><img class="trash_img" src="./assets/trash_icon.svg" alt=""></a></td>
+    <td><a class="delete-file" data-file_name="${fileName
+      .split(".")
+      .slice(0, -1)
+      .join(
+        "."
+      )}" ><img class="trash_img" src="./assets/trash_icon.svg" alt=""></a></td>
     </tr>`;
   });
 }
 
-function getFileStatus(file){
-  if(file.pins.length == 0){
-    return "Queued"
-  }
-  else{
-    let status = "Pinned"
-    file.pins.forEach(element => {
-      if(element.status != "Pinned"){
-        status = "Queued"
+function getFileStatus(file) {
+  if (file.pins.length == 0) {
+    return "Queued";
+  } else {
+    let status = "Pinned";
+    file.pins.forEach((element) => {
+      if (element.status != "Pinned") {
+        status = "Queued";
       }
     });
     return status;
@@ -171,13 +182,12 @@ function getFileStatus(file){
 }
 
 function getStorageProviders(fileStatus, file) {
-  if(fileStatus == "Queued"){
+  if (fileStatus == "Queued") {
     return fileStatus;
-  }
-  else{
+  } else {
     let storageProviders = "";
-    file.deals.forEach(provider => {
-      storageProviders += `<a href="https://filfox.info/en/deal/${provider.dealId}" target="blank">${provider.storageProvider} </a>`
+    file.deals.forEach((provider) => {
+      storageProviders += `<a href="https://filfox.info/en/deal/${provider.dealId}" target="blank">${provider.storageProvider} </a>`;
     });
     return storageProviders;
   }
@@ -195,9 +205,28 @@ function formatSize(byteSize) {
   }
 }
 
+//display no data available message
+function dispNoDataMsg() {
+  resetForm();
+  filesTable.innerHTML += `
+    <tr id="no-data-row">
+      <td colspan="7">No files were added</td>
+    </tr>`;
+}
+
+//display loader table row
+function dispLoaderRow() {
+  const noDataRow = document.querySelector("#no-data-row");
+  if (noDataRow) {
+    resetForm()
+  }
+  filesTable.innerHTML += `
+  <tr id="loader-row">
+    <td colspan="7">wait...</td>
+  </tr>`;
+}
+
 //update file info
-const fileInput = document.querySelector("#file_selector");
-const fileInfo = document.querySelector("#file_info");
-fileInput.addEventListener("change", ()=> {
-  fileInfo.textContent=fileInput?.files[0]?.name;
-})
+fileInput.addEventListener("change", () => {
+  fileInfo.textContent = fileInput?.files[0]?.name;
+});
