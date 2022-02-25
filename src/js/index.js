@@ -194,3 +194,10 @@ function formatSize(byteSize) {
     return (byteSize / (1024 * 1024 * 1024)).toFixed(2) + " GB";
   }
 }
+
+//update file info
+const fileInput = document.querySelector("#file_selector");
+const fileInfo = document.querySelector("#file_info");
+fileInput.addEventListener("change", ()=> {
+  fileInfo.textContent=fileInput?.files[0]?.name;
+})

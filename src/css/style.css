@@ -156,11 +156,34 @@ form {
   justify-content: center;
 }
 
-#file_selector {
-  border: none;
-  padding: 1rem;
+.file_selector_wrapper{
+  display: flex;
+  align-items: center;
+  margin:.5rem 0;
+}
+
+#file_selector_label{
+  font-size:1rem;
+  padding: .5rem 1rem;
   border-radius: 0.5rem;
   background-color: var(--background);
+  color:#444;
+  user-select: none;
+  cursor: pointer;
+}
+
+#file_selector_label:hover{
+  box-shadow: 2px 2px 3px #44444490;
+}
+
+
+#file_selector {
+  display: none;
+}
+
+#file_info{
+  font-size:.8rem;
+  margin-left:.5rem;
 }
 
 p {

@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>D-Storage</title>
 </head>
 
@@ -17,45 +17,49 @@
       <a href="#home">Home</a>
       <a href="#upload">Upload</a>
       <a href="#files">Files</a>
-      <a  id="sign-in-btn">Sign-in</a>
-      <a  id="sign-out-btn">Sign-out</a>
+      <a id="sign-in-btn">Sign-in</a>
+      <a id="sign-out-btn">Sign-out</a>
     </div>
   </nav>
   <main>
-
     <section id="home">
       <video autoplay loop muted>
-        <source src="./assets/pexels_vid1.mp4" type="video/mp4">
+        <source src="./assets/pexels_vid1.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <h1 class="jt --debug">
         <span class="jt__row">
-          <span class="jt__text">A Decentralized storage Application using Web3.Storage powered by Filecoin</span>
+          <span class="jt__text">A Decentralized storage Application using Web3.Storage powered by
+            Filecoin</span>
         </span>
         <span class="jt__row jt__row--sibling" aria-hidden="true">
-          <span class="jt__text">A Decentralized storage Application using Web3.Storage powered by Filecoin</span>
+          <span class="jt__text">A Decentralized storage Application using Web3.Storage powered by
+            Filecoin</span>
         </span>
         <span class="jt__row jt__row--sibling" aria-hidden="true">
-          <span class="jt__text">A Decentralized storage Application using Web3.Storage powered by Filecoin</span>
+          <span class="jt__text">A Decentralized storage Application using Web3.Storage powered by
+            Filecoin</span>
         </span>
         <span class="jt__row jt__row--sibling" aria-hidden="true">
-          <span class="jt__text">A Decentralized storage Application using Web3.Storage powered by Filecoin</span>
+          <span class="jt__text">A Decentralized storage Application using Web3.Storage powered by
+            Filecoin</span>
         </span>
       </h1>
     </section>
 
-    <section id="web3">
-      
-    </section>
-    
-    
+    <section id="web3"></section>
+
     <section id="upload">
       <div class="upload_img_cont">
-        <img class="upload_img" src="./assets/file-upload-solid.svg" alt="">
+        <img class="upload_img" src="./assets/file-upload-solid.svg" alt="" />
         <h3>Upload Files</h3>
       </div>
       <form action="" id="uploadForm">
-        <input type="file" id="file_selector" multiple>
+        <div class="file_selector_wrapper">
+          <label for="file_selector" id="file_selector_label">choose files</label>
+          <input type="file" id="file_selector"/>
+          <p id="file_info">No choosen file</p>
+        </div>
         <button type="submit" id="submit">Upload</button>
         <p class="description">Choose files and click Upload</p>
       </form>
@@ -69,13 +73,12 @@
           <th>Status</th>
           <th>Storage Providers</th>
           <th>Size</th>
-          <th><img src="./assets/download_icon.svg" alt=""></th>
-          <th><img src="./assets/trash_icon.svg" alt=""></th>
+          <th><img src="./assets/download_icon.svg" alt="" /></th>
+          <th><img src="./assets/trash_icon.svg" alt="" /></th>
         </tr>
       </table>
     </section>
-    
-
   </main>
 </body>
+
 </html>
