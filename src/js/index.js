@@ -152,7 +152,9 @@ function updateFileContent(fileArray) {
 
     filesTable.innerHTML += `<tr class="table_records">
     <td class="file_name">${fileName}</td>
-    <td class="file_cid"><a href="https://${cid}.ipfs.dweb.link/" target="blank">${cid}</a></td>
+    <td class="file_cid"><a href="https://${cid}.ipfs.dweb.link/" target="blank">${cid}</a>
+      <img src="./assets/clipboard.png" alt="" class="copy-to-clipboard" data-cid="${cid}">
+    </td>
     <td>${fileStatus}</td>
     <td class="storage_providers">${storageProviders}</td>
     <td class="file_size">${size}</td>
@@ -165,6 +167,7 @@ function updateFileContent(fileArray) {
       )}" ><img class="trash_img" src="./assets/trash_icon.svg" alt=""></a></td>
     </tr>`;
   });
+  addClipboardOption();
 }
 
 function getFileStatus(file) {
@@ -218,7 +221,7 @@ function dispNoDataMsg() {
 function dispLoaderRow() {
   const noDataRow = document.querySelector("#no-data-row");
   if (noDataRow) {
-    resetForm()
+    resetForm();
   }
   filesTable.innerHTML += `
   <tr id="loader-row">
@@ -230,3 +233,13 @@ function dispLoaderRow() {
 fileInput.addEventListener("change", () => {
   fileInfo.textContent = fileInput?.files[0]?.name;
 });
+
+function addClipboardOption() {
+  const clipboards = document.querySelectorAll(".copy-to-clipboard");
+  clipboards.forEach((clipboard) => {
+    clipboard.addEventListener("click", () => {
+      const cid = clipboard.dataset.cid;
+      navigator.clipboard.writeText(cid);
+    });
+  });
+}
